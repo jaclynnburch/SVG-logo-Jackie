@@ -12,7 +12,7 @@ const init = () => {
                 case 'square':
                     console.log('Square is being created.');
                     const square = new Square(data.color); // Assuming color is the property you want to pass
-                    fs.writeFile('main/output/logo.svg', square.render(), (err) => {
+                    fs.writeFile('./logo.svg', square.render(), (err) => {
                         if (err) {
                             console.error(err);
                         } else {
@@ -23,7 +23,7 @@ const init = () => {
                     case 'circle':
                         console.log('circle is being created.');
                         const circle = new Circle(data.color); // Assuming color is the property you want to pass
-                        fs.writeFile('main/output/logo.svg', circle.render(), (err) => {
+                        fs.writeFile('./logo.svg', circle.render(), (err) => {
                             if (err) {
                                 console.error(err);
                             } else {
@@ -33,7 +33,7 @@ const init = () => {
                         break; case 'Triangle':
                         console.log('Square is being created.');
                         const triangle= new Triangle(data.color); // Assuming color is the property you want to pass
-                        fs.writeFile('main/output/logo.svg', square.render(), (err) => {
+                        fs.writeFile('./logo.svg', triangle.render(), (err) => {
                             if (err) {
                                 console.error(err);
                             } else {
