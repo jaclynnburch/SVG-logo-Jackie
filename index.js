@@ -1,53 +1,69 @@
 // Importing files
-const fs = require('fs');
+const fs = require('fs').promises;
 const inquirer = require('inquirer');
-const { Circle, Polygon, Square } = require('./lib/shapes');
-const { promptUser } = require('./lib/questions'); // Assuming you have a promptUser function in your questions module
+const { Circle, Polygon, Square, Triangle } = require('./lib/shapes');
 
-const init = () => {
-    promptUser() // Call the promptUser function directly
-        .then((data) => {
-            console.log('Creating svg file.');
-            switch (data.shape) { 
-                case 'square':
-                    console.log('Square is being created.');
-                    const square = new Square(data.color); // Assuming color is the property you want to pass
-                    fs.writeFile('./logo.svg', square.render(), (err) => {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            console.log('Square created.');
-                        }
-                    });
-                    break; // Add a break statement here to exit the switch block
-                    case 'circle':
-                        console.log('circle is being created.');
-                        const circle = new Circle(data.color); // Assuming color is the property you want to pass
-                        fs.writeFile('./logo.svg', circle.render(), (err) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log('Circle created.');
-                            }
-                        });
-                        break; case 'Triangle':
-                        console.log('Square is being created.');
-                        const triangle= new Triangle(data.color); // Assuming color is the property you want to pass
-                        fs.writeFile('./logo.svg', triangle.render(), (err) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log('Triangle created.');
-                            }
-                        });
-                        break;// Add cases for other shapes if needed
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-};
 
-// Call the init function
-init();
 
+
+inquirer.prompt([
+    {
+      name: 'text',
+      message: 'Enter the text for the logo (up to three characters):',
+      validate: (input) => {
+        return input.length > 0 && input.length <= 3;
+      }
+    },
+    {
+      name: 'textColor',
+      message: 'Enter the text color:',
+      default: 'black'
+    },
+    {
+      name: 'shape',
+      message: 'Select a shape:',
+      type: 'list',
+      choices: ['circle', 'triangle', 'square']
+    },
+    {
+      name: 'shapeColor',
+      message: 'Enter the shape color:',
+      default: 'blue'
+    }
+  ]).then((answers) => {
+    // Generate the SVG code using the user input
+    const svgCode = generateSVG(answers.text, answers.textColor, answers.shape, answers.shapeColor);
+  
+    // Save the SVG code to an SVG file
+    fs.writeFile('logo.svg', svgCode, (err) => {
+      if (err) throw err;
+      console.log('Logo saved as logo.svg');
+    });
+  });
+
+  function generateSVG(text, textColor, shape, shapeColor) {
+    let shapeCode;
+  
+    // Generate the SVG code based on the selected shape
+    switch (shape) {
+      case 'circle':
+        shapeCode = `<circle cx="150" cy="100" r="50" fill="${shapeColor}" />`;
+        break;
+      case 'triangle':
+        shapeCode = `<polygon points="100,50 200,150 0,150" fill="${shapeColor}" />`;
+        break;
+      case 'square':
+        shapeCode = `<rect x="100" y="50" width="100" height="100" fill="${shapeColor}" />`;
+        break;
+      default:
+        shapeCode = '';
+    }
+  
+    // Generate the complete SVG code with the specified text and colors
+    const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
+      ${shapeCode}
+      <text x="150" y="100" text-anchor="middle" fill="${textColor}" font-size="48">${text}</text>
+    </svg>`;
+  
+    return svgCode;
+  }
