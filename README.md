@@ -12,9 +12,8 @@ Run the generator: npm start
 ## Dependencies
 The SVG Logo Generator relies on the following dependencies:
 
-Inquirer:CLI prompt library.
+Inquirer: CLI prompt library.
 Jest: JavaScript testing framework.
-Loom Screen Recorder: Used for screen recording.
 
 ## Installation
 Make sure you have Node.js and npm installed before proceeding.
@@ -22,13 +21,15 @@ Make sure you have Node.js and npm installed before proceeding.
 ## Usage
 To use the SVG Logo Generator, run the following command:
 
-npm start
+npm start : 
 Follow the on-screen prompts to customize and generate your SVG logo.
+
+Screen Recorder: [Used for screen recording] https://www.loom.com/share/04730820833e44b483072b8f6d601335?sid=669ca97c-c7a2-4828-9eea-881785e12b7e
 
 ## Testing
 Ensure the stability of the SVG Logo Generator by running tests:
 
-npm test
+npm test : 
 This command executes the test suite using Jest.
 
 ## External Resources
