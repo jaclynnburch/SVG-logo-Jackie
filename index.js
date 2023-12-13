@@ -5,7 +5,7 @@ const { Circle, Polygon, Square, Triangle } = require('./lib/shapes');
 
 
 
-
+// Inquirer prompt
 inquirer.prompt([
     {
       name: 'text',
@@ -16,7 +16,7 @@ inquirer.prompt([
     },
     {
       name: 'textColor',
-      message: 'Enter the text color:',
+      message: 'Enter the text color or hexadecimal:',
       default: 'black'
     },
     {
@@ -27,10 +27,11 @@ inquirer.prompt([
     },
     {
       name: 'shapeColor',
-      message: 'Enter the shape color:',
+      message: 'Enter the shape color or hexadecimal:',
       default: 'blue'
     }
   ]).then((answers) => {
+
     // Generate the SVG code using the user input
     const svgCode = generateSVG(answers.text, answers.textColor, answers.shape, answers.shapeColor);
   
